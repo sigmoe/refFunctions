@@ -10,6 +10,9 @@ ReferenceFunctions
         begin                : 2014-09-20
         copyright            : (C) 2014 by enrico ferreguti
         email                : enricofer@gmail.com
+        updated by SIGMOÉ    : 2020-02-18
+        email                : em at sigmoe dot fr
+        copyright 2          : 2020 (C) etienne moro
  ***************************************************************************/
 
 /***************************************************************************
@@ -50,25 +53,29 @@ def _getLayerSet():
 @qgsfunction(4, "Reference", register=False)
 def dbvalue(values, feature, parent):
     """
-        Retrieve first targetField value from targetLayer when keyField is equal to conditionValue
-
+        Retrieve first target_field value from target_layer when condition_field is equal to condition_value
         <h4>Syntax</h4>
-        <p>dbvalue(<i>targetLayer,targetField,keyField,conditionValue</i>)</p>
-
+        <div class="syntax"><code>
+        <span class="functionname">dbvalue(</span>
+        <span class="argument">target_layer, target_field, condition_field, condition_value</span>
+        <span class="functionname">)</span>
+        </code></div>
         <h4>Arguments</h4>
-        <p><i>  targetLayer</i> &rarr; the name of a currently loaded layer, for example 'myLayer'.<br>
-        <i>  targetLayer</i> &rarr; a field of targetLayer whom value is needed, for example 'myTargetField'. In case of multiple results only the first is retrieved. If targetLayer = '$geometry' geometry value is retrieved <br></p>
-        <i>  keyField</i> &rarr; a field of targetLayer used to search between features, for example 'myKeyField'. <br></p>
-        <i>  conditionValue</i> &rarr; value used for comparisons with keyField content. Note thet the value need to be of the same type of keyField<br></p>
-
-        <h4>Example</h4>
-        <p><!-- Show examples of function.-->
-             dbvalue('myLayer','myTargetField','myKeyField',value) <br>
-        </p>
+        <div class="arguments">
+        <table>
+        <tr><td class="argument">target_layer</td><td>the name of a currently loaded layer, for example 'myLayer'.</td></tr>
+        <tr><td class="argument">target_field</td><td>the name of a field of target_layer that returns the value, for example 'myTargetField'. In case of multiple results only the first is retrieved. If target_field = '$geometry', geometry value is retrieved</td></tr>
+        <tr><td class="argument">condition_field</td><td>name of the field used for the condition, for example 'myKeyField'.</td></tr>
+        <tr><td class="argument">condition_value</td><td>specific value that should be found to consider the object. Note that the value need to have the same type as condition_field</td></tr>
+        </table></div>
+        <h4>Examples</h4>
+        <!-- Show examples of function.-->
+        <div class="examples"><ul>
+        <li><code>dbvalue('myLayer','myTargetField','myKeyField',value)</code></li>
+        </ul></div>
         <h4>Notes</h4>
-        <p>
-             The example function is similar to dbquery('myLayer','myTargetField','myKeyField =value') , but is significantly faster for large database
-        </p>
+        <div class="notes">The example function is similar to dbquery('myLayer','myTargetField','myKeyField =value') but is significantly faster for large database.
+        </div>
     """
     dbg = debug()
     dbg.out("evaluating dbvalue")
@@ -101,20 +108,25 @@ def dbvalue(values, feature, parent):
 @qgsfunction(3, "Reference", register=False, usesgeometry=True)
 def dbvaluebyid(values, feature, parent):
     """
-        Retrieve the targetField value from targetLayer using internal feature ID
-
+        Retrieve the target_field value from target_layer using internal feature_id
         <h4>Syntax</h4>
-        <p>dbvaluebyid(<i>'targetLayer','targetField',featureID</i>)</p>
-
+        <div class="syntax"><code>
+        <span class="functionname">dbvaluebyid(</span>
+        <span class="argument">target_layer, target_field, feature_id</span>
+        <span class="functionname">)</span>
+        </code></div>
         <h4>Arguments</h4>
-        <p><i>  targetLayer</i> &rarr; the name of a currently loaded layer, for example 'myLayer'.<br>
-        <i>  targetField</i> &rarr; a field of targetLayer whom value is needed, for example 'myTargetField'. In case of multiple results only the first is retrieved. If targetField = '$geometry' geometry value is retrieved <br></p>
-        <i>  featureID</i> &rarr; A Integer number reference to internal feature ID. <br></p>
-
-        <h4>Example</h4>
-        <p><!-- Show examples of function.-->
-             dbvaluebyid('myLayer','myTargetField',112) <br>
-        </p>
+        <div class="arguments">
+        <table>
+        <tr><td class="argument">target_layer</td><td>the name of a currently loaded layer, for example 'myLayer'.</td></tr>
+        <tr><td class="argument">target_field</td><td>the name of a field of target_layer that returns the value, for example 'myTargetField'. If target_field = '$geometry', geometry value is retrieved</td></tr>
+        <tr><td class="argument">feature_id</td><td>an integer number reference to internal feature ID</td></tr>
+        </table></div>
+        <h4>Examples</h4>
+        <!-- Show examples of function.-->
+        <div class="examples"><ul>
+        <li><code>dbvaluebyid('myLayer','myTargetField',112)</code></li>
+        </ul></div>
     """
     dbg = debug()
     dbg.out("evaluating dbvalue")
@@ -154,22 +166,29 @@ def dbvaluebyid(values, feature, parent):
 @qgsfunction(3, "Reference", register=False)
 def dbquery(values, feature, parent):
     """
-        Retrieve first targetField value from targetLayer when whereClause is true
-
+        Retrieve first target_field value from target_layer when where_clause is true
         <h4>Syntax</h4>
-        <p>dqquery(<i>targetLayer,targetField,whereClause</i>)</p>
-
+        <div class="syntax"><code>
+        <span class="functionname">dbquery(</span>
+        <span class="argument">target_layer, target_field, where_clause</span>
+        <span class="functionname">)</span>
+        </code></div>
         <h4>Arguments</h4>
-        <p><i>  targetLayer</i> &rarr; the name of a currently loaded layer, for example 'myLayer'.<br>
-        <i>  targetLayer</i> &rarr; a field of targetLayer whom value is needed, for example 'myField'. In case of multiple results only the first is retrieved. If targetLayer = '$geometry' geometry value is retrieved <br></p>
-        <i>  whereClause</i> &rarr; a valid expression string without duoble quotes to identify fields, for example 'field1 > 1 and field2 = "foo"' <br></p>
-
-        <h4>Example</h4>
-        <p><!-- Show examples of function.-->
-             dbquery('myLayer','myField','field1 > 1 and field2 = "foo"') <br>
-             dbquery('myLayer','$geometry','field1 > 1 and field2 = "foo"') <br></p>
-
-        </p>
+        <div class="arguments">
+        <table>
+        <tr><td class="argument">target_layer</td><td>the name of a currently loaded layer, for example 'myLayer'.</td></tr>
+        <tr><td class="argument">target_field</td><td>a field in target_layer we want as result when source feature contains target feature, for example 'myField'.
+        <br/>If target_field is equal to '$geometry' the WKT geometry of target feature will be retrieved.
+        </td></tr>
+        <tr><td class="argument">where_clause</td><td>a valid expression string without double quotes to identify fields, for example 'field1 > 1 and field2 = "foo"' </td></tr>
+        </table>
+        </div>
+        <h4>Examples</h4>
+        <!-- Show examples of function.-->
+        <div class="examples"><ul>
+        <li><code>dbquery('myLayer','myField','field1 > 1 and field2 = "foo"')</code></li>
+        <li><code>dbquery('myLayer','$geometry','field1 > 1 and field2 = "foo"')</code></li>
+        </ul></div>
     """
     targetLayerName = values[0].replace('"','')
     targetFieldName = values[1].replace('"','')
@@ -200,20 +219,25 @@ def dbquery(values, feature, parent):
 def dbsql(values, feature, parent):
     """
         Retrieve results from SQL query
-
         <h4>Syntax</h4>
-        <p>dbsql(<i>connectionName,sqlQuery</i>)</p>
-
+        <h4>Syntax</h4>
+        <div class="syntax"><code>
+        <span class="functionname">dbsql(</span>
+        <span class="argument">connection_name,sql_query</span>
+        <span class="functionname">)</span>
+        </code></div>
         <h4>Arguments</h4>
-        <p><i>  connectionName</i> &rarr; the name of a currently registered database connection, for example 'myConnection'.<br>
-        <i>  sqlQuery</i> &rarr; a valid sql query string where do, for example 'field1 > 1 and field2 = "foo"' <br></p>
-
-        <h4>Example</h4>
-        <p><!-- Show examples of function.-->
-             dbquery('myLayer','myField','field1 > 1 and field2 = "foo"') <br>
-             dbquery('myLayer','$geometry','field1 > 1 and field2 = "foo"') <br></p>
-
-        </p>
+        <div class="arguments">
+        <table>
+        <tr><td class="argument">connection_name</td><td>the name of a currently registered database connection, for example 'myConnection'.</td></tr>
+        <tr><td class="argument">sql_query</td><td>a valid sql query string (where clause), for example 'field1 > 1 and field2 = "foo"'</td></tr>
+        </table>
+        </div>
+        <h4>Examples</h4>
+        <div class="examples"><ul>
+        <li><code>dbsql('myLayer','myField','field1 > 1 and field2 = "foo"')</code></li>
+        <li><code>dbsql('myLayer','$geometry','field1 > 1 and field2 = "foo"')</code></li>
+        </ul></div>
     """
     dbg=debug()
     dbg.out("evaluating dbsql")
@@ -241,19 +265,23 @@ def dbsql(values, feature, parent):
 @qgsfunction(1, "Reference", register=False, usesgeometry=True)
 def geomRedef(values, feature, parent):
     """
-        redefine the current feature geometry with a new WKT geometry
-
+        Redefine the current feature geometry with a new WKT geometry
         <h4>Syntax</h4>
-        <p>geomRedef(<i>WKTgeometry</i>)</p>
-
+        <div class="syntax"><code>
+        <span class="functionname">geomredef(</span>
+        <span class="argument">WKTgeometry</span>
+        <span class="functionname">)</span>
+        </code></div>
         <h4>Arguments</h4>
-        <p><i>  WKTgeometry</i> &rarr; a valid WKT geometry provided by expression commands .<br></p>
-
-        <h4>Example</h4>
-        <p><!-- Show examples of function.-->
-             geomRedef('myGeometry') <br>
-
-        </p>
+        <div class="arguments">
+        <table>
+        <tr><td class="argument">WKTgeometry</td><td>a valid WKT geometry provided by expression commands </td></tr>
+        </table>
+        <h4>Examples</h4>
+        <!-- Show examples of function.-->
+        <div class="examples"><ul>
+        <li><code>geomredef('POLYGON((602793.98 6414014.88,....))')</code></li>
+        </ul></div>
     """
     dbg=debug()
     dbg.out("self redefine geometry")
@@ -295,20 +323,24 @@ def xx(values, feature, parent):
 @qgsfunction(1, "Transformation", register=False)
 def canvaswidth(values, feature, parent):
     """
-        Return the width of the current canvas width (in pixel or map units)
-
+        Return the width of the current canvas (in pixels or map units)
         <h4>Syntax</h4>
-        <p>CanvasWidth(<i>'units'</i>)</p>
-
+        <div class="syntax"><code>
+        <span class="functionname">canvas_width(</span>
+        <span class="argument">unit</span>
+        <span class="functionname">)</span>
+        </code></div>
         <h4>Arguments</h4>
-        <p><i>  geometry</i> &rarr; a valid geometry provided by expression commands 'myGeometry'.<br></p>
-
-        <h4>Example</h4>
-        <p><!-- Show examples of function.-->
-             geomRedef('myLayer','myField','field1 > 1 and field2 = "foo"') <br>
-             dbquery('myLayer','$geometry','field1 > 1 and field2 = "foo"') <br></p>
-
-        </p>
+        <div class="arguments">
+        <table>
+        <tr><td class="argument">unit</td><td>the unit in which the size is returned ('pixels' or 'mapunits')</td></tr>
+        </table>
+        </div>
+        <h4>Examples</h4>
+        <!-- Show examples of function.-->
+        <div class="examples"><ul>
+        <li><code>canvas_width('mapunits')</code></li>
+        </ul></div>
     """
     dbg=debug()
     dbg.out("CanvasWidth")
@@ -328,23 +360,27 @@ def canvaswidth(values, feature, parent):
 @qgsfunction(1, "Transformation", register=False)
 def canvasheight(values, feature, parent):
     """
-        Return the width of the current canvas width (in pixel or map units)
-
+        Return the height of the current canvas (in pixels or map units)
         <h4>Syntax</h4>
-        <p>CanvasWidth(<i>'units'</i>)</p>
-
+        <div class="syntax"><code>
+        <span class="functionname">canvas_height(</span>
+        <span class="argument">unit</span>
+        <span class="functionname">)</span>
+        </code></div>
         <h4>Arguments</h4>
-        <p><i>  geometry</i> &rarr; a valid geometry provided by expression commands 'myGeometry'.<br></p>
-
-        <h4>Example</h4>
-        <p><!-- Show examples of function.-->
-             geomRedef('myLayer','myField','field1 > 1 and field2 = "foo"') <br>
-             dbquery('myLayer','$geometry','field1 > 1 and field2 = "foo"') <br></p>
-
-        </p>
+        <div class="arguments">
+        <table>
+        <tr><td class="argument">unit</td><td>the unit in which the size is returned ('pixels' or 'mapunits')</td></tr>
+        </table>
+        </div>
+        <h4>Examples</h4>
+        <!-- Show examples of function.-->
+        <div class="examples"><ul>
+        <li><code>canvas_height('mapunits')</code></li>
+        </ul></div>
     """
     dbg=debug()
-    dbg.out("CanvasWidth")
+    dbg.out("CanvasHeight")
     mapCanvas = iface.mapCanvas()
     if values[0]=='pixels':
         res = iface.mapCanvas().mapRenderer().height()
@@ -360,20 +396,24 @@ def canvasheight(values, feature, parent):
 @qgsfunction(0, "Transformation", register=False, usesgeometry=True)
 def canvasx(values, feature, parent):
     """
-        Return the width of the current canvas width (in pixel or map units)
-
+        Return the height of the current canvas (in pixels or map units)
         <h4>Syntax</h4>
-        <p>CanvasWidth(<i>'units'</i>)</p>
-
+        <div class="syntax"><code>
+        <span class="functionname">canvas_height(</span>
+        <span class="argument">unit</span>
+        <span class="functionname">)</span>
+        </code></div>
         <h4>Arguments</h4>
-        <p><i>  geometry</i> &rarr; a valid geometry provided by expression commands 'myGeometry'.<br></p>
-
-        <h4>Example</h4>
-        <p><!-- Show examples of function.-->
-             geomRedef('myLayer','myField','field1 > 1 and field2 = "foo"') <br>
-             dbquery('myLayer','$geometry','field1 > 1 and field2 = "foo"') <br></p>
-
-        </p>
+        <div class="arguments">
+        <table>
+        <tr><td class="argument">unit</td><td>the unit in which the size is returned ('pixels' or 'mapunits')</td></tr>
+        </table>
+        </div>
+        <h4>Examples</h4>
+        <!-- Show examples of function.-->
+        <div class="examples"><ul>
+        <li><code>canvas_height('mapunits')</code></li>
+        </ul></div>
     """
     dbg=debug()
     dbg.out("canvasx")
@@ -390,20 +430,24 @@ def canvasx(values, feature, parent):
 @qgsfunction(0, "Transformation", register=False, usesgeometry=True)
 def canvasy(values, feature, parent):
     """
-        Return the width of the current canvas width (in pixel or map units)
-
+        Return the height of the current canvas (in pixels or map units)
         <h4>Syntax</h4>
-        <p>CanvasWidth(<i>'units'</i>)</p>
-
+        <div class="syntax"><code>
+        <span class="functionname">canvas_height(</span>
+        <span class="argument">unit</span>
+        <span class="functionname">)</span>
+        </code></div>
         <h4>Arguments</h4>
-        <p><i>  geometry</i> &rarr; a valid geometry provided by expression commands 'myGeometry'.<br></p>
-
-        <h4>Example</h4>
-        <p><!-- Show examples of function.-->
-             geomRedef('myLayer','myField','field1 > 1 and field2 = "foo"') <br>
-             dbquery('myLayer','$geometry','field1 > 1 and field2 = "foo"') <br></p>
-
-        </p>
+        <div class="arguments">
+        <table>
+        <tr><td class="argument">unit</td><td>the unit in which the size is returned ('pixels' or 'mapunits')</td></tr>
+        </table>
+        </div>
+        <h4>Examples</h4>
+        <!-- Show examples of function.-->
+        <div class="examples"><ul>
+        <li><code>canvas_height('mapunits')</code></li>
+        </ul></div>
     """
     dbg=debug()
     dbg.out("canvasy")
@@ -422,18 +466,22 @@ def canvasy(values, feature, parent):
 def WKTcentroid(values, feature, parent):
     """
         Return the center of mass of the given geometry
-
         <h4>Syntax</h4>
-        <p>WKTcentroid(<i>'WKTgeometry'</i>)</p>
-
+        <div class="syntax"><code>
+        <span class="functionname">WKTcentroid(</span>
+        <span class="argument">WKTgeometry</span>
+        <span class="functionname">)</span>
+        </code></div>
         <h4>Arguments</h4>
-        <p><i>WKTgeometry</i> &rarr; a valid WKTgeometry<br></p>
-
-        <h4>Example</h4>
-        <p><!-- Show examples of function.-->
-             WKTcentroid('POLYGON((602793.98 6414014.88,....))') <br>
-
-        </p>
+        <div class="arguments">
+        <table>
+        <tr><td class="argument">WKTgeometry</td><td>a valid WKT geometry provided by expression commands </td></tr>
+        </table>
+        <h4>Examples</h4>
+        <!-- Show examples of function.-->
+        <div class="examples"><ul>
+        <li><code>WKTcentroid('POLYGON((602793.98 6414014.88,....))')</code></li>
+        </ul></div>
     """
     dbg=debug()
     dbg.out("centroid")
@@ -448,19 +496,23 @@ def WKTcentroid(values, feature, parent):
 @qgsfunction(1, "Reference", register=False)
 def WKTpointonsurface(values, feature, parent):
     """
-        Return the point within  the given geometry
-
+        Return the point within the given geometry
         <h4>Syntax</h4>
-        <p>WKTpointonsurface(<i>'WKTgeometry'</i>)</p>
-
+        <div class="syntax"><code>
+        <span class="functionname">WKTpointonsurface(</span>
+        <span class="argument">WKTgeometry</span>
+        <span class="functionname">)</span>
+        </code></div>
         <h4>Arguments</h4>
-        <p><i>WKTgeometry</i> &rarr; a valid WKTgeometry<br></p>
-
-        <h4>Example</h4>
-        <p><!-- Show examples of function.-->
-             WKTpointonsurface('POLYGON((602793.98 6414014.88,....))') <br>
-
-        </p>
+        <div class="arguments">
+        <table>
+        <tr><td class="argument">WKTgeometry</td><td>a valid WKT geometry provided by expression commands </td></tr>
+        </table>
+        <h4>Examples</h4>
+        <!-- Show examples of function.-->
+        <div class="examples"><ul>
+        <li><code>WKTpointonsurface('POLYGON((602793.98 6414014.88,....))')</code></li>
+        </ul></div>
     """
     dbg=debug()
     dbg.out("centroid")
@@ -472,24 +524,28 @@ def WKTpointonsurface(values, feature, parent):
         return
 
 @qgsfunction(1, "Reference", register=False)
-def WKTlenght(values, feature, parent):
+def WKTlength(values, feature, parent):
     """
         Return the length of the given geometry
-
         <h4>Syntax</h4>
-        <p>WKTlenght<i>'WKTgeometry'</i>)</p>
-
+        <div class="syntax"><code>
+        <span class="functionname">WKTlength(</span>
+        <span class="argument">WKTgeometry</span>
+        <span class="functionname">)</span>
+        </code></div>
         <h4>Arguments</h4>
-        <p><i>WKTgeometry</i> &rarr; a valid WKTgeometry<br></p>
-
-        <h4>Example</h4>
-        <p><!-- Show examples of function.-->
-             WKTlenght('POLYGON((602793.98 6414014.88,....))') <br>
-
-        </p>
+        <div class="arguments">
+        <table>
+        <tr><td class="argument">WKTgeometry</td><td>a valid WKT geometry provided by expression commands </td></tr>
+        </table>
+        <h4>Examples</h4>
+        <!-- Show examples of function.-->
+        <div class="examples"><ul>
+        <li><code>WKTlength('LINESTRING(602793.98 6414014.88,....)')</code></li>
+        </ul></div>
     """
     dbg=debug()
-    dbg.out("lenght")
+    dbg.out("length")
     ArgGeometry = QgsGeometry().fromWkt(values[0])
     try:
         return ArgGeometry.length()
@@ -501,18 +557,22 @@ def WKTlenght(values, feature, parent):
 def WKTarea(values, feature, parent):
     """
         Return the area of the given geometry
-
         <h4>Syntax</h4>
-        <p>WKTarea<i>'WKTgeometry'</i>)</p>
-
+        <div class="syntax"><code>
+        <span class="functionname">WKTarea(</span>
+        <span class="argument">WKTgeometry</span>
+        <span class="functionname">)</span>
+        </code></div>
         <h4>Arguments</h4>
-        <p><i>WKTgeometry</i> &rarr; a valid "Well Known Text" geometry<br></p>
-
-        <h4>Example</h4>
-        <p><!-- Show examples of function.-->
-             WKTarea('POLYGON((602793.98 6414014.88,....))') <br>
-
-        </p>
+        <div class="arguments">
+        <table>
+        <tr><td class="argument">WKTgeometry</td><td>a valid WKT geometry provided by expression commands </td></tr>
+        </table>
+        <h4>Examples</h4>
+        <!-- Show examples of function.-->
+        <div class="examples"><ul>
+        <li><code>WKTarea('POLYGON((602793.98 6414014.88,....))')</code></li>
+        </ul></div>
     """
     dbg=debug()
     dbg.out("area")
@@ -524,50 +584,35 @@ def WKTarea(values, feature, parent):
         #parent.setEvalErrorString("error: WKT geometry not valid")
         return None
 
-@qgsfunction(0,"Reference", register=False, usesgeometry=True)
-def nearestVertex(values, feature, parent):
-    """
-        Return the nearest vertex as point geometry
-
-        <h4>Syntax</h4>
-        <p>dbsql(<i>geometry</i>)</p>
-
-        <h4>Arguments</h4>
-        <p><i>  geometry</i> &rarr; a valid geometry provided by expression commands 'myGeometry'.<br></p>
-
-        <h4>Example</h4>
-        <p><!-- Show examples of function.-->
-             geomRedef('myLayer','myField','field1 > 1 and field2 = "foo"') <br>
-             dbquery('myLayer','$geometry','field1 > 1 and field2 = "foo"') <br></p>
-
-        </p>
-    """
-    dbg=debug()
-    dbg.out("nearestVertex")
-    pass
-
 @qgsfunction(2, "Reference", register=False, usesgeometry=True)
 def geomnearest(values, feature, parent):
     """
-        Retrieve target field value from the nearest target feature in target layer
-
+        Retrieve target_field value from the nearest feature in target_layer
         <h4>Syntax</h4>
-        <p>geomnearest(<i>targetLayer,targetField</i>)</p>
-
+        <div class="syntax"><code>
+        <span class="functionname">geomnearest(</span>
+        <span class="argument">target_layer, target_field</span>
+        <span class="functionname">)</span>
+        </code></div>
         <h4>Arguments</h4>
-        <p><i>  targetLayer</i> &rarr; the name of a currently loaded layer, for example 'myLayer'.<br>
-        <i>  targetField</i> &rarr; a field in target layer we want as result when source feature is within target feature, for example 'myField'. <br/>
-        If targetField is equal to '$geometry' The WKT geometry of targetFeature willbe retrieved. If otherwise is equal to '$distance' the calculated distance between source and target features will be returned<br></p>
-
-        <i>  Number of feature tested is limited to 100000 to avoid time wasting loops</i>
-
-        <h4>Example</h4>
-        <p><!-- Show examples of function.-->
-             geomnearest('targetLayer','TargetField') <br>
-             geomnearest('targetLayer','$geometry') <br>
-             geomnearest('targetLayer','$distance') <br>
-
-        </p>
+        <div class="arguments">
+        <table>
+        <tr><td class="argument">target_layer</td><td>the name of a currently loaded layer, for example 'myLayer'.</td></tr>
+        <tr><td class="argument">target_field</td><td>a field in target_layer we want as result when target feature is the nearest from source feature, for example 'myField'.
+        <br/>If target_field is equal to '$geometry' the WKT geometry of target feature will be retrieved.
+        <br/>If target_field is equal to '$id' the feature id of target feature will be retrieved.
+        <br/>If target_field is equal to '$distance' the calculated distance between source and target features will be returned.</td></tr>
+        </table>
+        <i>Number of feature tested is limited to 100000 to avoid time wasting loops</i>
+        </div>
+        <h4>Examples</h4>
+        <!-- Show examples of function.-->
+        <div class="examples"><ul>
+        <li><code>geomnearest('targetLayer','TargetField')</code></li>
+        <li><code>geomnearest('targetLayer','$geometry')</code></li>
+        <li><code>geomnearest('targetLayer','$id')</code></li>
+        <li><code>geomnearest('targetLayer','$distance')</code></li>
+        </ul></div>
     """
     dbg=debug()
     dbg.out("evaluating geomnearest")
@@ -618,26 +663,33 @@ def geomnearest(values, feature, parent):
 @qgsfunction(3, "Reference", register=False, usesgeometry=True)
 def geomdistance(values, feature, parent):
     """
-        Retrieve target field value from target feature in target layer if target feature is in distance
-
+        Retrieve target_field value from feature in target_layer if target feature is in distance
         <h4>Syntax</h4>
-        <p>geomdistance(<i>'targetLayer','targetField',distanceCheck</i>)</p>
-
+        <div class="syntax"><code>
+        <span class="functionname">geomdistance(</span>
+        <span class="argument">target_layer, target_field, distance</span>
+        <span class="functionname">)</span>
+        </code></div>
         <h4>Arguments</h4>
-        <p><i>  targetLayer</i> &rarr; the name of a currently loaded layer, for example 'myLayer'.<br>
-        <i>  targetField</i> &rarr; a field in target layer we want as result when source feature is within target feature, for example 'myField'. <br/>
-        <i>  distance</i> &rarr; maximum distance from feature to be considered. <br/>
-        If targetField is equal to '$geometry' The WKT geometry of targetFeature willbe retrieved. If otherwise is equal to '$distance' the calculated distance between source and target features will be returned<br></p>
-
-        <i>  Number of feature tested is limited to 100000 to avoid time wasting loops</i>
-
-        <h4>Example</h4>
-        <p><!-- Show examples of function.-->
-             geomdistance('targetLayer','TargetField',100) <br>
-             geomdistance('targetLayer','$geometry',100) <br>
-             geomdistance('targetLayer','$distance',100) <br>
-
-        </p>
+        <div class="arguments">
+        <table>
+        <tr><td class="argument">target_layer</td><td>the name of a currently loaded layer, for example 'myLayer'.</td></tr>
+        <tr><td class="argument">target_field</td><td>a field in target_layer we want as result when target feature is the nearest from source feature, for example 'myField'.
+        <br/>If target_field is equal to '$geometry' the WKT geometry of target feature will be retrieved.
+        <br/>If target_field is equal to '$id' the feature id of target feature will be retrieved.
+        <br/>If target_field is equal to '$distance' the calculated distance between source and target features will be returned.</td></tr>
+        <tr><td class="argument">distance</td><td>the maximum distance from feature to be considered.</td></tr>
+        </table>
+        <i>Number of feature tested is limited to 100000 to avoid time wasting loops</i>
+        </div>
+        <h4>Examples</h4>
+        <!-- Show examples of function.-->
+        <div class="examples"><ul>
+        <li><code>geomdistance('targetLayer','TargetField',100)</code></li>
+        <li><code>geomdistance('targetLayer','$geometry',100)</code></li>
+        <li><code>geomdistance('targetLayer','$id',100)</li>
+        <li><code>geomdistance('targetLayer','$distance',100)</code></li>
+        </ul></div>
     """
     dbg=debug()
     dbg.out("evaluating geomdistance")
@@ -684,558 +736,359 @@ def geomdistance(values, feature, parent):
             return -1
     else:
         parent.setEvalErrorString("error: no features to compare")
+        
 
+# Update Sigmoé
+# Main function used by all the geom... functions
+def geomsteval(values, feature, parent, predic, dbg):
+    targetLayerName = values[0]
+    targetFieldName = values[1]
+    #layerSet = {layer.name():layer for layer in iface.legendInterface().layers()}
+    layerSet = _getLayerSet()
+    if not (targetLayerName in layerSet.keys()):
+        parent.setEvalErrorString("error: targetLayer not present")
+        return
+    dbg.out(layerSet)
+    dbg.out(layerSet[targetLayerName].id())
+    if layerSet[targetLayerName].type() != QgsMapLayer.VectorLayer:
+        parent.setEvalErrorString("error: targetLayer is not a vector layer")
+        return
+    count = 0
+    dminRes = ""
+    dminResLst = []
+    for feat in layerSet[targetLayerName].getFeatures():
+        count += 1
+        if count < 100000:
+            if eval("feature.geometry()." + predic + "(feat.geometry())"):
+                if targetFieldName=="$geometry":
+                    dminRes = feat.geometry().asWkt()
+                elif targetFieldName=="$id":
+                    dminRes = feat.id()
+                else:
+                    try:
+                        # Case of concatenation of several attribute values
+                        if "+" in targetFieldName:
+                            fld_names = targetFieldName.split("+")
+                            nw_val = ""
+                            for fld_name in fld_names:
+                                if feat.attribute(fld_name):
+                                    nw_val += str(feat.attribute(fld_name)) + " "
+                            nw_val = nw_val[:-1]
+                        else:
+                            nw_val = feat.attribute(targetFieldName)
+                        if nw_val not in dminResLst:
+                            if dminRes != "":
+                                dminRes = str(dminRes) + " | " + str(nw_val)
+                            else:
+                                dminRes = nw_val
+                            dminResLst.append(nw_val)
+                    except:
+                        parent.setEvalErrorString("error: targetFieldName not present")
+                        return None
+        else:
+            parent.setEvalErrorString("error: too many features to compare")
+    if count > 0:
+        try:
+            return dminRes
+        except:
+            return None
+    else:
+        parent.setEvalErrorString("error: no features to compare")
+        return None
+
+# Updated Sigmoé
 @qgsfunction(2, "Reference", register=False,usesgeometry=True)
 def geomwithin(values, feature, parent):
     """
-        Retrieve target field value when source feature is within target feature in target layer
-
+        Retrieve target_field value when source feature is within feature in target_layer.
+        If more than one object found, return a unique value composed of the value of each object separated by | (list of unique values).
         <h4>Syntax</h4>
-        <p>geomwithin(<i>targetLayer,targetField</i>)</p>
-
+        <div class="syntax"><code>
+        <span class="functionname">geomwithin(</span>
+        <span class="argument">target_layer, target_field</span>
+        <span class="functionname">)</span>
+        </code></div>
         <h4>Arguments</h4>
-        <p><i>  targetLayer</i> &rarr; the name of a currently loaded layer, for example 'myLayer'.<br>
-        <i>  targetField</i> &rarr; a field in target layer we want as result when source feature is within target feature, for example 'myField'. If targetField is equal to '$geometry' The WKT geometry of targetFeature willbe retrieved <br></p>
-
-        <i>  Number of feature tested is limited to 100000 to avoid time wasting loops</i>
-
-        <h4>Example</h4>
-        <p><!-- Show examples of function.-->
-             geomwithin('targetLayer','TargetField') <br>
-             geomwithin('targetLayer','$geometry') <br>
-
-        </p>
+        <div class="arguments">
+        <table>
+        <tr><td class="argument">target_layer</td><td>the name of a currently loaded layer, for example 'myLayer'.</td></tr>
+        <tr><td class="argument">target_field</td><td>a field in target_layer we want as result when source feature is within target feature, for example 'myField'.
+        <br/>If target_field contains the name of several fields separated by +, the result is the concatenation of the result value of each field.
+        <br/>If target_field is equal to '$geometry' the WKT geometry of target feature will be retrieved.
+        <br/>If target_field is equal to '$id' the feature id of target feature will be retrieved.</td></tr>
+        </table>
+        <i>Number of feature tested is limited to 100000 to avoid time wasting loops</i>
+        </div>
+        <h4>Examples</h4>
+        <!-- Show examples of function.-->
+        <div class="examples"><ul>
+        <li><code>geomwithin('targetLayer','TargetField')</code></li>
+        <li><code>geomwithin('targetLayer','TargetField1+TargetField12')</code></li>
+        <li><code>geomwithin('targetLayer','$geometry')</code></li>
+        <li><code>geomwithin('targetLayer','$id')</code></li>
+        </ul></div>
     """
     dbg=debug()
     dbg.out("evaluating geomwithin")
-    targetLayerName = values[0]
-    targetFieldName = values[1]
-    #layerSet = {layer.name():layer for layer in iface.legendInterface().layers()}
-    layerSet = _getLayerSet()
-    if not (targetLayerName in layerSet.keys()):
-        parent.setEvalErrorString("error: targetLayer not present")
-        return
-    dbg.out(layerSet[targetLayerName].id())
-    if layerSet[targetLayerName].type() != QgsMapLayer.VectorLayer:
-        parent.setEvalErrorString("error: targetLayer is not a vector layer")
-        return
-    #fieldSet = [field.name() for field in layerSet[targetLayerName].pendingFields()]
-    #if not(targetFieldName in fieldSet):
-    #    parent.setEvalErrorString("error: targetFieldName not present")
-    #    return None
-    count = 0
-    for feat in layerSet[targetLayerName].getFeatures():
-        count += 1
-        if count < 100000:
-            if feature.geometry().within(feat.geometry()):
-                dbg.out('OK:'+str(feat.id()))
-                if targetFieldName=="$geometry":
-                    dminRes = feat.geometry().asWkt()
-                elif targetFieldName=="$id":
-                    dminRes = feat.id()
-                else:
-                    try:
-                        dminRes = feat.attribute(targetFieldName)
-                    except:
-                        parent.setEvalErrorString("error: targetFieldName = '%s' not present" % targetFieldName)
-                        return None
-        else:
-            parent.setEvalErrorString("error: too many features to compare")
-            return None
-    if count > 0:
-        try:
-            return dminRes
-        except:
-            return None
-    else:
-        parent.setEvalErrorString("error: no features to compare")
+    return geomsteval(values, feature, parent, "within", dbg)
 
+
+# Updated Sigmoé
 @qgsfunction(2, "Reference", register=False,usesgeometry=True)
 def geomtouches(values, feature, parent):
     """
-        Retrieve target field value when source feature touches target feature in target layer
-
+        Retrieve target_field value when source feature touches feature in target_layer.
+        If more than one object found, return a unique value composed of the value of each object separated by | (list of unique values).
         <h4>Syntax</h4>
-        <p>geomtouches(<i>targetLayer,targetField</i>)</p>
-
+        <div class="syntax"><code>
+        <span class="functionname">geomtouches(</span>
+        <span class="argument">target_layer, target_field</span>
+        <span class="functionname">)</span>
+        </code></div>
         <h4>Arguments</h4>
-        <p><i>  targetLayer</i> &rarr; the name of a currently loaded layer, for example 'myLayer'.<br>
-        <i>  targetField</i> &rarr; a field in target layer we want as result when source feature is within target feature, for example 'myField'. If targetField is equal to '$geometry' The WKT geometry of targetFeature willbe retrieved <br></p>
-
-        <i>  Number of feature tested is limited to 100000 to avoid time wasting loops</i>
-
-        <h4>Example</h4>
-        <p><!-- Show examples of function.-->
-             geomtouches('targetLayer','TargetField') <br>
-             geomtouches('targetLayer','$geometry') <br>
-
-        </p>
+        <div class="arguments">
+        <table>
+        <tr><td class="argument">target_layer</td><td>the name of a currently loaded layer, for example 'myLayer'.</td></tr>
+        <tr><td class="argument">target_field</td><td>a field in target_layer we want as result when source feature touches target feature, for example 'myField'.
+        <br/>If target_field contains the name of several fields separated by +, the result is the concatenation of the result value of each field.
+        <br/>If target_field is equal to '$geometry' the WKT geometry of target feature will be retrieved.
+        <br/>If target_field is equal to '$id' the feature id of target feature will be retrieved.</td></tr>
+        </table>
+        <i>Number of feature tested is limited to 100000 to avoid time wasting loops</i>
+        </div>
+        <h4>Examples</h4>
+        <!-- Show examples of function.-->
+        <div class="examples"><ul>
+        <li><code>geomtouches('targetLayer','TargetField')</code></li>
+        <li><code>geomtouches('targetLayer','TargetField1+TargetField12')</code></li>
+        <li><code>geomtouches('targetLayer','$geometry')</code></li>
+        <li><code>geomtouches('targetLayer','$id')</code></li>
+        </ul></div>
     """
     dbg=debug()
     dbg.out("evaluating geomtouches")
-    targetLayerName = values[0]
-    targetFieldName = values[1]
-    #layerSet = {layer.name():layer for layer in iface.legendInterface().layers()}
-    layerSet = _getLayerSet()
-    if not (targetLayerName in layerSet.keys()):
-        parent.setEvalErrorString("error: targetLayer not present")
-        return
-    if layerSet[targetLayerName].type() != QgsMapLayer.VectorLayer:
-        parent.setEvalErrorString("error: targetLayer is not a vector layer")
-        return
-    count = 0
-    for feat in layerSet[targetLayerName].getFeatures():
-        count += 1
-        if count < 100000:
-            if feature.geometry().touches(feat.geometry()):
-                if targetFieldName=="$geometry":
-                    dminRes = feat.geometry().asWkt()
-                elif targetFieldName=="$id":
-                    dminRes = feat.id()
-                else:
-                    try:
-                        dminRes = feat.attribute(targetFieldName)
-                    except:
-                        parent.setEvalErrorString("error: targetFieldName not present")
-                        return None
-        else:
-            parent.setEvalErrorString("error: too many features to compare")
-    if count > 0:
-        try:
-            return dminRes
-        except:
-            return None
-    else:
-        parent.setEvalErrorString("error: no features to compare")
+    return geomsteval(values, feature, parent, "touches", dbg)
+        
 
+# Updated Sigmoé
 @qgsfunction(2, "Reference", register=False,usesgeometry=True)
 def geomintersects(values, feature, parent):
     """
-        Retrieve target field value when source feature intersects target feature in target layer
-
+        Retrieve target_field value when source feature intersects feature in target_layer. If more than one object found, return a unique value composed of the value of each object separated by | (list of unique values).
         <h4>Syntax</h4>
-        <p>geomintersects(<i>targetLayer,targetField</i>)</p>
-
+        <div class="syntax"><code>
+        <span class="functionname">geomintersects(</span>
+        <span class="argument">target_layer, target_field</span>
+        <span class="functionname">)</span>
+        </code></div>
         <h4>Arguments</h4>
-        <p><i>  targetLayer</i> &rarr; the name of a currently loaded layer, for example 'myLayer'.<br>
-        <i>  targetField</i> &rarr; a field in target layer we want as result when source feature is within target feature, for example 'myField'. If targetField is equal to '$geometry' The WKT geometry of targetFeature willbe retrieved <br></p>
-
-        <i>  Number of feature tested is limited to 100000 to avoid time wasting loops</i>
-
-        <h4>Example</h4>
-        <p><!-- Show examples of function.-->
-             geomintersects('targetLayer','TargetField') <br>
-             geomintersects('targetLayer','$geometry') <br>
-
-        </p>
+        <div class="arguments">
+        <table>
+        <tr><td class="argument">target_layer</td><td>the name of a currently loaded layer, for example 'myLayer'.</td></tr>
+        <tr><td class="argument">target_field</td><td>a field in target_layer we want as result when source feature intersects target feature, for example 'myField'.
+        <br/>If target_field contains the name of several fields separated by +, the result is the concatenation of the result value of each field.
+        <br/>If target_field is equal to '$geometry' the WKT geometry of target feature will be retrieved.
+        <br/>If target_field is equal to '$id' the feature id of target feature will be retrieved.</td></tr>
+        </table>
+        <i>Number of feature tested is limited to 100000 to avoid time wasting loops</i>
+        </div>
+        <h4>Examples</h4>
+        <!-- Show examples of function.-->
+        <div class="examples"><ul>
+        <li><code>geomintersects('targetLayer','TargetField')</code></li>
+        <li><code>geomintersects('targetLayer','TargetField1+TargetField12')</code></li>
+        <li><code>geomintersects('targetLayer','$geometry')</code></li>
+        <li><code>geomintersects('targetLayer','$id')</code></li>
+        </ul></div>
     """
     dbg=debug()
-    dbg.out("evaluating geomtouches")
-    targetLayerName = values[0]
-    targetFieldName = values[1]
-    #layerSet = {layer.name():layer for layer in iface.legendInterface().layers()}
-    layerSet = _getLayerSet()
-    if not (targetLayerName in layerSet.keys()):
-        parent.setEvalErrorString("error: targetLayer not present")
-        return
-    dbg.out(layerSet)
-    dbg.out(layerSet[targetLayerName].id())
-    if layerSet[targetLayerName].type() != QgsMapLayer.VectorLayer:
-        parent.setEvalErrorString("error: targetLayer is not a vector layer")
-        return
-    count = 0
-    for feat in layerSet[targetLayerName].getFeatures():
-        count += 1
-        if count < 100000:
-            if feature.geometry().intersects(feat.geometry()):
-                if targetFieldName=="$geometry":
-                    dminRes = feat.geometry().asWkt()
-                elif targetFieldName=="$id":
-                    dminRes = feat.id()
-                else:
-                    try:
-                        dminRes = feat.attribute(targetFieldName)
-                    except:
-                        parent.setEvalErrorString("error: targetFieldName not present")
-                        return None
-        else:
-            parent.setEvalErrorString("error: too many features to compare")
-    if count > 0:
-        try:
-            return dminRes
-        except:
-            return None
-    else:
-        parent.setEvalErrorString("error: no features to compare")
+    dbg.out("evaluating geomintersects")
+    return geomsteval(values, feature, parent, "intersects", dbg)
 
+
+# Updated Sigmoé
 @qgsfunction(2, "Reference", register=False, usesgeometry=True)
 def geomcontains(values, feature, parent):
     """
-        Retrieve target field value when source feature contains target feature in target layer
-
+        Retrieve target_field value when source feature contains feature in target_layer. If more than one object found, return a unique value composed of the value of each object separated by | (list of unique values).
         <h4>Syntax</h4>
-        <p>geomcontains(<i>targetLayer,targetField</i>)</p>
-
+        <div class="syntax"><code>
+        <span class="functionname">geomcontains(</span>
+        <span class="argument">target_layer, target_field</span>
+        <span class="functionname">)</span>
+        </code></div>
         <h4>Arguments</h4>
-        <p><i>  targetLayer</i> &rarr; the name of a currently loaded layer, for example 'myLayer'.<br>
-        <i>  targetField</i> &rarr; a field in target layer we want as result when source feature is within target feature, for example 'myField'. If targetField is equal to '$geometry' The WKT geometry of targetFeature willbe retrieved <br></p>
-
-        <i>  Number of feature tested is limited to 100000 to avoid time wasting loops</i>
-
-        <h4>Example</h4>
-        <p><!-- Show examples of function.-->
-             geomcontains('targetLayer','TargetField') <br>
-             geomcontains('targetLayer','$geometry') <br>
-
-        </p>
+        <div class="arguments">
+        <table>
+        <tr><td class="argument">target_layer</td><td>the name of a currently loaded layer, for example 'myLayer'.</td></tr>
+        <tr><td class="argument">target_field</td><td>a field in target_layer we want as result when source feature contains target feature, for example 'myField'.
+        <br/>If target_field contains the name of several fields separated by +, the result is the concatenation of the result value of each field.
+        <br/>If target_field is equal to '$geometry' the WKT geometry of target feature will be retrieved.
+        <br/>If target_field is equal to '$id' the feature id of target feature will be retrieved.</td></tr>
+        </table>
+        <i>Number of feature tested is limited to 100000 to avoid time wasting loops</i>
+        </div>
+        <h4>Examples</h4>
+        <!-- Show examples of function.-->
+        <div class="examples"><ul>
+        <li><code>geomcontains('targetLayer','TargetField')</code></li>
+        <li><code>geomcontains('targetLayer','TargetField1+TargetField12')</code></li>
+        <li><code>geomcontains('targetLayer','$geometry')</code></li>
+        <li><code>geomcontains('targetLayer','$id')</code></li>
+        </ul></div>
     """
     dbg=debug()
     dbg.out("evaluating geomcontains")
-    targetLayerName = values[0]
-    targetFieldName = values[1]
-    #layerSet = {layer.name():layer for layer in iface.legendInterface().layers()}
-    layerSet = _getLayerSet()
-    if not (targetLayerName in layerSet.keys()):
-        parent.setEvalErrorString("error: targetLayer not present")
-        return
-    dbg.out(layerSet)
-    dbg.out(layerSet[targetLayerName].id())
-    if layerSet[targetLayerName].type() != QgsMapLayer.VectorLayer:
-        parent.setEvalErrorString("error: targetLayer is not a vector layer")
-        return
-    count = 0
-    for feat in layerSet[targetLayerName].getFeatures():
-        count += 1
-        if count < 100000:
-            if feature.geometry().contains(feat.geometry()):
-                if targetFieldName=="$geometry":
-                    dminRes = feat.geometry().asWkt()
-                elif targetFieldName=="$id":
-                    dminRes = feat.id()
-                else:
-                    try:
-                        dminRes = feat.attribute(targetFieldName)
-                    except:
-                        parent.setEvalErrorString("error: targetFieldName not present")
-                        return None
-        else:
-            parent.setEvalErrorString("error: too many features to compare")
-    if count > 0:
-        try:
-            return dminRes
-        except:
-            return None
-    else:
-        parent.setEvalErrorString("error: no features to compare")
+    return geomsteval(values, feature, parent, "contains", dbg)
+    
 
+# Updated Sigmoé
 @qgsfunction(2, "Reference", register=False,usesgeometry=True)
 def geomdisjoint(values, feature, parent):
     """
-        Retrieve target field value when source feature is disjoint from target feature in target layer
-
+        Retrieve target_field value when source feature is disjoint from target feature in target_layer. If more than one object found, return a unique value composed of the value of each object separated by | (list of unique values).
         <h4>Syntax</h4>
-        <p>geomcontains(<i>targetLayer,targetField</i>)</p>
-
+        <div class="syntax"><code>
+        <span class="functionname">geomdisjoint(</span>
+        <span class="argument">target_layer, target_field</span>
+        <span class="functionname">)</span>
+        </code></div>
         <h4>Arguments</h4>
-        <p><i>  targetLayer</i> &rarr; the name of a currently loaded layer, for example 'myLayer'.<br>
-        <i>  targetField</i> &rarr; a field in target layer we want as result when source feature is within target feature, for example 'myField'. If targetField is equal to '$geometry' The WKT geometry of targetFeature willbe retrieved <br></p>
-
-        <i>  Number of feature tested is limited to 100000 to avoid time wasting loops</i>
-
-        <h4>Example</h4>
-        <p><!-- Show examples of function.-->
-             geomdisjoint('targetLayer','TargetField') <br>
-             geomdisjoint('targetLayer','$geometry') <br>
-
-        </p>
+        <div class="arguments">
+        <table>
+        <tr><td class="argument">target_layer</td><td>the name of a currently loaded layer, for example 'myLayer'.</td></tr>
+        <tr><td class="argument">target_field</td><td>a field in target_layer we want as result when source feature is disjoint from target feature, for example 'myField'.
+        <br/>If target_field contains the name of several fields separated by +, the result is the concatenation of the result value of each field.
+        <br/>If target_field is equal to '$geometry' the WKT geometry of target feature will be retrieved.
+        <br/>If target_field is equal to '$id' the feature id of target feature will be retrieved.</td></tr>
+        </table>
+        <i>Number of feature tested is limited to 100000 to avoid time wasting loops</i>
+        </div>
+        <h4>Examples</h4>
+        <!-- Show examples of function.-->
+        <div class="examples"><ul>
+        <li><code>geomdisjoint('Parcels','Id')</code></li>
+        <li><code>geomdisjoint('Parcels','section+number')</code></li>
+        <li><code>geomdisjoint('Buildings','$geometry')</code></li>
+        <li><code>geomdisjoint('Buildings','$id')</code></li>
+        </ul></div>
     """
     dbg=debug()
     dbg.out("evaluating geomdisjoint")
-    targetLayerName = values[0]
-    targetFieldName = values[1]
-    #layerSet = {layer.name():layer for layer in iface.legendInterface().layers()}
-    layerSet = _getLayerSet()
-    if not (targetLayerName in layerSet.keys()):
-        parent.setEvalErrorString("error: targetLayer not present")
-        return
-    if layerSet[targetLayerName].type() != QgsMapLayer.VectorLayer:
-        parent.setEvalErrorString("error: targetLayer is not a vector layer")
-        return
-    count = 0
-    for feat in layerSet[targetLayerName].getFeatures():
-        count += 1
-        if count < 100000:
-            if feature.geometry().disjoint(feat.geometry()):
-                if targetFieldName=="$geometry":
-                    dminRes = feat.geometry().asWkt()
-                elif targetFieldName=="$id":
-                    dminRes = feat.id()
-                else:
-                    try:
-                        dminRes = feat.attribute(targetFieldName)
-                    except:
-                        parent.setEvalErrorString("error: targetFieldName not present")
-                        return None
-        else:
-            parent.setEvalErrorString("error: too many features to compare")
-    if count > 0:
-        try:
-            return dminRes
-        except:
-            return None
-    else:
-        parent.setEvalErrorString("error: no features to compare")
-
+    return geomsteval(values, feature, parent, "disjoint", dbg)
+    
+        
+# Updated Sigmoé
 @qgsfunction(2, "Reference", register=False,usesgeometry=True)
 def geomequals(values, feature, parent):
     """
-        Retrieve target field value when source feature is equal to target feature in target layer
-
+        Retrieve target_field value when source feature is equal (same geometry) to feature in target_layer. If more than one object found, return a unique value composed of the value of each object separated by | (list of unique values).
         <h4>Syntax</h4>
-        <p>geomequals(<i>targetLayer,targetField</i>)</p>
-
+        <div class="syntax"><code>
+        <span class="functionname">geomequals(</span>
+        <span class="argument">target_layer, target_field</span>
+        <span class="functionname">)</span>
+        </code></div>
         <h4>Arguments</h4>
-        <p><i>  targetLayer</i> &rarr; the name of a currently loaded layer, for example 'myLayer'.<br>
-        <i>  targetField</i> &rarr; a field in target layer we want as result when source feature is within target feature, for example 'myField'. If targetField is equal to '$geometry' The WKT geometry of targetFeature willbe retrieved <br></p>
-
-        <i>  Number of feature tested is limited to 100000 to avoid time wasting loops</i>
-
-        <h4>Example</h4>
-        <p><!-- Show examples of function.-->
-             geomequals('targetLayer','TargetField') <br>
-             geomequals('targetLayer','$geometry') <br>
-
-        </p>
+        <div class="arguments">
+        <table>
+        <tr><td class="argument">target_layer</td><td>the name of a currently loaded layer, for example 'myLayer'.</td></tr>
+        <tr><td class="argument">target_field</td><td>a field in target_layer we want as result when source feature is equal to target feature, for example 'myField'.
+        <br/>If target_field contains the name of several fields separated by +, the result is the concatenation of the result value of each field.
+        <br/>If target_field is equal to '$geometry' the WKT geometry of target feature will be retrieved.
+        <br/>If target_field is equal to '$id' the feature id of target feature will be retrieved.</td></tr>
+        </table>
+        <i>Number of feature tested is limited to 100000 to avoid time wasting loops</i>
+        </div>
+        <h4>Examples</h4>
+        <!-- Show examples of function.-->
+        <div class="examples"><ul>
+        <li><code>geomequals('targetLayer','TargetField')</code></li>
+        li><code>geomequals('targetLayer','TargetField1+TargetField12')</code></li>
+        <li><code>geomequals('targetLayer','$geometry')</code></li>
+        <li><code>geomequals('targetLayer','$id')</code></li>
+        </ul></div>
     """
     dbg=debug()
     dbg.out("evaluating geomcontains")
-    targetLayerName = values[0]
-    targetFieldName = values[1]
-    #layerSet = {layer.name():layer for layer in iface.legendInterface().layers()}
-    layerSet = _getLayerSet()
-    if not (targetLayerName in layerSet.keys()):
-        parent.setEvalErrorString("error: targetLayer not present")
-        return
-    if layerSet[targetLayerName].type() != QgsMapLayer.VectorLayer:
-        parent.setEvalErrorString("error: targetLayer is not a vector layer")
-        return
-    count = 0
-    for feat in layerSet[targetLayerName].getFeatures():
-        count += 1
-        if count < 100000:
-            if feature.geometry().equals(feat.geometry()):
-                if targetFieldName=="$geometry":
-                    dminRes = feat.geometry().asWkt()
-                elif targetFieldName=="$id":
-                    dminRes = feat.id()
-                else:
-                    try:
-                        dminRes = feat.attribute(targetFieldName)
-                    except:
-                        parent.setEvalErrorString("error: targetFieldName not present")
-                        return None
-        else:
-            parent.setEvalErrorString("error: too many features to compare")
-    if count > 0:
-        try:
-            return dminRes
-        except:
-            return None
-    else:
-        parent.setEvalErrorString("error: no features to compare")
+    return geomsteval(values, feature, parent, "equals", dbg)
 
-@qgsfunction(2, "Reference", register=False,usesgeometry=True)
-def geomtouches(values, feature, parent):
-    """
-        Retrieve target field value when source feature touches target feature in target layer
 
-        <h4>Syntax</h4>
-        <p>geomtouches(<i>targetLayer,targetField</i>)</p>
-
-        <h4>Arguments</h4>
-        <p><i>  targetLayer</i> &rarr; the name of a currently loaded layer, for example 'myLayer'.<br>
-        <i>  targetField</i> &rarr; a field in target layer we want as result when source feature is within target feature, for example 'myField'. If targetField is equal to '$geometry' The WKT geometry of targetFeature willbe retrieved <br></p>
-
-        <i>  Number of feature tested is limited to 100000 to avoid time wasting loops</i>
-
-        <h4>Example</h4>
-        <p><!-- Show examples of function.-->
-             geomtouches('targetLayer','TargetField') <br>
-             geomtouches('targetLayer','$geometry') <br>
-
-        </p>
-    """
-    dbg=debug()
-    dbg.out("evaluating geomcontains")
-    targetLayerName = values[0]
-    targetFieldName = values[1]
-    #layerSet = {layer.name():layer for layer in iface.legendInterface().layers()}
-    layerSet = _getLayerSet()
-    if not (targetLayerName in layerSet.keys()):
-        parent.setEvalErrorString("error: targetLayer not present")
-        return
-    if layerSet[targetLayerName].type() != QgsMapLayer.VectorLayer:
-        parent.setEvalErrorString("error: targetLayer is not a vector layer")
-        return
-    count = 0
-    for feat in layerSet[targetLayerName].getFeatures():
-        count += 1
-        if count < 100000:
-            if feature.geometry().touches(feat.geometry()):
-                if targetFieldName=="$geometry":
-                    dminRes = feat.geometry().asWkt()
-                elif targetFieldName=="$id":
-                    dminRes = feat.id()
-                else:
-                    try:
-                        dminRes = feat.attribute(targetFieldName)
-                    except:
-                        parent.setEvalErrorString("error: targetFieldName not present")
-                        return None
-        else:
-            parent.setEvalErrorString("error: too many features to compare")
-    if count > 0:
-        try:
-            return dminRes
-        except:
-            return None
-    else:
-        parent.setEvalErrorString("error: no features to compare")
-
+# Updated Sigmoé
 @qgsfunction(2, "Reference", register=False,usesgeometry=True)
 def geomoverlaps(values, feature, parent):
     """
-        Retrieve target field value when source feature overlaps target feature in target layer
-
+        Retrieve target_field value when source feature overlaps feature in target_layer. If more than one object found, return a unique value composed of the value of each object separated by | (list of unique values).
         <h4>Syntax</h4>
-        <p>geomoverlaps(<i>targetLayer,targetField</i>)</p>
-
+        <div class="syntax"><code>
+        <span class="functionname">geomoverlaps(</span>
+        <span class="argument">target_layer, target_field</span>
+        <span class="functionname">)</span>
+        </code></div>
         <h4>Arguments</h4>
-        <p><i>  targetLayer</i> &rarr; the name of a currently loaded layer, for example 'myLayer'.<br>
-        <i>  targetField</i> &rarr; a field in target layer we want as result when source feature is within target feature, for example 'myField'. If targetField is equal to '$geometry' The WKT geometry of targetFeature willbe retrieved <br></p>
-
-        <i>  Number of feature tested is limited to 100000 to avoid time wasting loops</i>
-
-        <h4>Example</h4>
-        <p><!-- Show examples of function.-->
-             geomoverlaps('targetLayer','TargetField') <br>
-             geomoverlaps('targetLayer','$geometry') <br>
-
-        </p>
+        <div class="arguments">
+        <table>
+        <tr><td class="argument">target_layer</td><td>the name of a currently loaded layer, for example 'myLayer'.</td></tr>
+        <tr><td class="argument">target_field</td><td>a field in target_layer we want as result when source feature overlaps target feature, for example 'myField'.
+        <br/>If target_field contains the name of several fields separated by +, the result is the concatenation of the result value of each field.
+        <br/>If target_field is equal to '$geometry' the WKT geometry of target feature will be retrieved.
+        <br/>If target_field is equal to '$id' the feature id of target feature will be retrieved.</td></tr>
+        </table>
+        <i>Number of feature tested is limited to 100000 to avoid time wasting loops</i>
+        </div>
+        <h4>Examples</h4>
+        <!-- Show examples of function.-->
+        <div class="examples"><ul>
+        <li><code>geomoverlaps('targetLayer','TargetField')</code></li>
+        <li><code>geomoverlaps('targetLayer','TargetField1+TargetField12')</code></li>
+        <li><code>geomoverlaps('targetLayer','$geometry')</code></li>
+        <li><code>geomoverlaps('targetLayer','$id')</code></li>
+        </ul></div>
     """
     dbg=debug()
     dbg.out("evaluating geomcontains")
-    targetLayerName = values[0]
-    targetFieldName = values[1]
-    #layerSet = {layer.name():layer for layer in iface.legendInterface().layers()}
-    layerSet = _getLayerSet()
-    if not (targetLayerName in layerSet.keys()):
-        parent.setEvalErrorString("error: targetLayer not present")
-        return
-    if layerSet[targetLayerName].type() != QgsMapLayer.VectorLayer:
-        parent.setEvalErrorString("error: targetLayer is not a vector layer")
-        return
-    count = 0
-    for feat in layerSet[targetLayerName].getFeatures():
-        count += 1
-        if count < 100000:
-            if feature.geometry().overlaps(feat.geometry()):
-                if targetFieldName=="$geometry":
-                    dminRes = feat.geometry().asWkt()
-                elif targetFieldName=="$id":
-                    dminRes = feat.id()
-                else:
-                    try:
-                        dminRes = feat.attribute(targetFieldName)
-                    except:
-                        parent.setEvalErrorString("error: targetFieldName not present")
-                        return None
-        else:
-            parent.setEvalErrorString("error: too many features to compare")
-    if count > 0:
-        try:
-            return dminRes
-        except:
-            return None
-    else:
-        parent.setEvalErrorString("error: no features to compare")
+    return geomsteval(values, feature, parent, "overlaps", dbg)
+    
 
+# Updated Sigmoé
 @qgsfunction(2, "Reference", register=False,usesgeometry=True)
 def geomcrosses(values, feature, parent):
     """
-        Retrieve target field value when source feature crosses target feature in target layer
-
+        Retrieve target_field value when source feature crosses feature in target_layer. If more than one object found, return a unique value composed of the value of each object separated by | (list of unique values).
         <h4>Syntax</h4>
-        <p>geomcrosses(<i>targetLayer,targetField</i>)</p>
-
+        <div class="syntax"><code>
+        <span class="functionname">geomcrosses(</span>
+        <span class="argument">target_layer, target_field</span>
+        <span class="functionname">)</span>
+        </code></div>
         <h4>Arguments</h4>
-        <p><i>  targetLayer</i> &rarr; the name of a currently loaded layer, for example 'myLayer'.<br>
-        <i>  targetField</i> &rarr; a field in target layer we want as result when source feature is within target feature, for example 'myField'. If targetField is equal to '$geometry' The WKT geometry of targetFeature willbe retrieved <br></p>
-
-        <i>  Number of feature tested is limited to 100000 to avoid time wasting loops</i>
-
-        <h4>Example</h4>
-        <p><!-- Show examples of function.-->
-             geomcrosses('targetLayer','TargetField') <br>
-             geomcrosses('targetLayer','$geometry') <br>
-
-        </p>
+        <div class="arguments">
+        <table>
+        <tr><td class="argument">target_layer</td><td>the name of a currently loaded layer, for example 'myLayer'.</td></tr>
+        <tr><td class="argument">target_field</td><td>a field in target_layer we want as result when source feature crosses target feature, for example 'myField'.
+        <br/>If target_field contains the name of several fields separated by +, the result is the concatenation of the result value of each field.
+        <br/>If target_field is equal to '$geometry' the WKT geometry of target feature will be retrieved.
+        <br/>If target_field is equal to '$id' the feature id of target feature will be retrieved.</td></tr>
+        </table>
+        <i>Number of feature tested is limited to 100000 to avoid time wasting loops</i>
+        </div>
+        <h4>Examples</h4>
+        <!-- Show examples of function.-->
+        <div class="examples"><ul>
+        <li><code>geomcrosses('targetLayer','TargetField')</code></li>
+        <li><code>geomcrosses('targetLayer','TargetField1+TargetField12')</code></li>
+        <li><code>geomcrosses('targetLayer','$geometry')</code></li>
+        <li><code>geomcrosses('targetLayer','$id')</code></li>
+        </ul></div>
     """
     dbg=debug()
     dbg.out("evaluating geomcrosses")
-    targetLayerName = values[0]
-    targetFieldName = values[1]
-    #layerSet = {layer.name():layer for layer in iface.legendInterface().layers()}
-    layerSet = _getLayerSet()
-    if not (targetLayerName in layerSet.keys()):
-        parent.setEvalErrorString("error: targetLayer not present")
-        return
-    if layerSet[targetLayerName].type() != QgsMapLayer.VectorLayer:
-        parent.setEvalErrorString("error: targetLayer is not a vector layer")
-        return
-    count = 0
-    for feat in layerSet[targetLayerName].getFeatures():
-        count += 1
-        if count < 100000:
-            if feature.geometry().crosses(feat.geometry()):
-                if targetFieldName=="$geometry":
-                    dminRes = feat.geometry().asWkt()
-                elif targetFieldName=="$id":
-                    dminRes = feat.id()
-                else:
-                    try:
-                        dminRes = feat.attribute(targetFieldName)
-                    except:
-                        parent.setEvalErrorString("error: targetFieldName not present")
-                        return None
-        else:
-            parent.setEvalErrorString("error: too many features to compare")
-    if count > 0:
-        try:
-            return dminRes
-        except:
-            return None
-    else:
-        parent.setEvalErrorString("error: no features to compare")
+    return geomsteval(values, feature, parent, "crosses", dbg)      
         
-        
-        
-@qgsfunction(args=1, group='Reference',register = False, usesgeometry=True)
-def intersecting_geom_count(values, feature, parent):
-    """
-        Get the count of the features in target layer intersected by the source feature
-        
-        <h4>Syntax</h4>
-        <p>intersecting_geom_count(<i>'target_layer_name'</i>)</p>
-        <h4>Arguments</h4>
-        <p><i>  target_layer_name </i> : name of the target layer, for exemple 'COUNTRIES'.<br>
-        
-        <h4>Example</h4>
-        <p><!-- Show example of function.-->
-             intersecting_geom_count('COUNTRIES') &rarr; 665</p>
-        
-    """ 
-    
+
+# Updated Sigmoé
+# Main function used by ...geom_count functions
+def stgeomcounteval(values, feature, parent, predic):
     DEBUG = False
     try:    #qgis 3
         if DEBUG : print('feat geom ',feature.geometry().asPolygon(), feature.geometry().area(), feature.hasGeometry())
@@ -1262,187 +1115,119 @@ def intersecting_geom_count(values, feature, parent):
         request = qgis.core.QgsFeatureRequest()
         request.setFilterRect(feature.geometry().boundingBox())
         for feat in layerSet[targetLayerName].getFeatures(request):
-            if feat.geometry().intersects(feature.geometry()):
+            if eval("feat.geometry()."+ predic + "(feature.geometry())"):
                 count += 1
         if DEBUG : print('feat ',feature.id(),'count',count)
         return count
         
     else:
         return False
+
+        
+# Updated Sigmoé
+@qgsfunction(args=1, group="Reference",register = False, usesgeometry=True)
+def intersecting_geom_count(values, feature, parent):
+    """
+        Get the count of the features in target_layer that intersect the source feature
+        <h4>Syntax</h4>
+        <div class="syntax"><code>
+        <span class="functionname">intersecting_geom_count(</span>
+        <span class="argument">'target_layer'</span>
+        <span class="functionname">)</span>
+        </code></div>
+        <h4>Arguments</h4>
+        <div class="arguments">
+        <table>
+        <tr><td class="argument">target_layer</td><td>name of the target layer, for example 'Trees'.</td></tr>
+        </table></div>
+        <h4>Examples</h4>
+        <!-- Show example of function.-->
+        <div class="examples"><ul>
+        <li><code>intersecting_geom_count('Trees')</code> &rarr; <code>126</code></li>
+        </ul></div>
+    """ 
+    
+    return stgeomcounteval(values, feature, parent, "intersects")
             
 
 @qgsfunction(args=1, group='Reference',register = False, usesgeometry=True)
 def within_geom_count(values, feature, parent):
     """
-        Get the count of the features in target layer within  the source feature
-        
+        Get the count of the features in target_layer that are within the source feature
         <h4>Syntax</h4>
-        <p>within_geom_count(<i>'target_layer_name'</i>)</p>
-
+        <div class="syntax"><code>
+        <span class="functionname">within_geom_count(</span>
+        <span class="argument">'target_layer'</span>
+        <span class="functionname">)</span>
+        </code></div>
         <h4>Arguments</h4>
-        <p><i>  target_layer_name </i> : name of the target layer, for exemple 'COUNTRIES'.<br>
-        
-        <h4>Example</h4>
-        <p><!-- Show example of function.-->
-             within_geom_count('COUNTRIES') &rarr; 665</p>
-        
+        <div class="arguments">
+        <table>
+        <tr><td class="argument">target_layer</td><td>name of the target layer, for example 'Trees'.</td></tr>
+        </table></div>
+        <h4>Examples</h4>
+        <!-- Show example of function.-->
+        <div class="examples"><ul>
+        <li><code>within_geom_count('Trees')</code> &rarr; <code>126</code></li>
+        </ul></div>
     """ 
     
-    DEBUG = False
-    try:    #qgis 3
-        if DEBUG : print('feat geom ',feature.geometry().asPolygon(), feature.geometry().area(), feature.hasGeometry())
-    except: #qgis 2
-        if DEBUG : print('feat geom ', feature.geometry())
-    
-    targetLayerName = values[0]
-    #targetFieldName = values[1]
-    
-    if feature.geometry() is not None:        
-        #layerSet = {layer.name():layer for layer in iface.legendInterface().layers()}
-        layerSet = _getLayerSet()
-        
-        
-        if not (targetLayerName in layerSet.keys()):
-            parent.setEvalErrorString("error: targetLayer not present")
-            return
-        if layerSet[targetLayerName].type() != qgis.core.QgsMapLayer.VectorLayer:
-            parent.setEvalErrorString("error: targetLayer is not a vector layer")
-            return
-            
-        count = 0
-        
-        request = qgis.core.QgsFeatureRequest()
-        request.setFilterRect(feature.geometry().boundingBox())
-        for feat in layerSet[targetLayerName].getFeatures(request):
-            if feat.geometry().within(feature.geometry()):
-                count += 1
-        if DEBUG : print('feat ',feature.id(),'count',count)
-        return count
-        
-    else:
-        return False
+    return stgeomcounteval(values, feature, parent, "within")
         
 @qgsfunction(args=1, group='Reference',register = False, usesgeometry=True)
 def overlapping_geom_count(values, feature, parent):
     """
-        Get the count of the features in target layer overlaping  the source feature
-        
+        Get the count of the features in target_layer overlaping the source feature
         <h4>Syntax</h4>
-        <p>overlapping_geom_count(<i>'target_layer_name'</i>)</p>
+        <div class="syntax"><code>
+        <span class="functionname">overlapping_geom_count(</span>
+        <span class="argument">'target_layer'</span>
+        <span class="functionname">)</span>
+        </code></div>
         <h4>Arguments</h4>
-        <p><i>  target_layer_name </i> : name of the target layer, for exemple 'COUNTRIES'.<br>
-        
-        <h4>Example</h4>
-        <p><!-- Show example of function.-->
-             overlapping_geom_count('COUNTRIES') &rarr; 665</p>
-        
+        <div class="arguments">
+        <table>
+        <tr><td class="argument">target_layer</td><td>name of the target layer, for example 'Trees'.</td></tr>
+        </table></div>
+        <h4>Examples</h4>
+        <!-- Show example of function.-->
+        <div class="examples"><ul>
+        <li><code>overlapping_geom_count('Trees')</code> &rarr; <code>126</code></li>
+        </ul></div>
     """ 
     
-    DEBUG = False
-    try:    #qgis 3
-        if DEBUG : print('feat geom ',feature.geometry().asPolygon(), feature.geometry().area(), feature.hasGeometry())
-    except: #qgis 2
-        if DEBUG : print('feat geom ', feature.geometry())
-    
-    targetLayerName = values[0]
-    #targetFieldName = values[1]
-    
-    if feature.geometry() is not None:        
-        #layerSet = {layer.name():layer for layer in iface.legendInterface().layers()}
-        layerSet = _getLayerSet()
-        
-        
-        if not (targetLayerName in layerSet.keys()):
-            parent.setEvalErrorString("error: targetLayer not present")
-            return
-        if layerSet[targetLayerName].type() != qgis.core.QgsMapLayer.VectorLayer:
-            parent.setEvalErrorString("error: targetLayer is not a vector layer")
-            return
-            
-        count = 0
-        
-        request = qgis.core.QgsFeatureRequest()
-        request.setFilterRect(feature.geometry().boundingBox())
-        for feat in layerSet[targetLayerName].getFeatures(request):
-            if feat.geometry().overlaps(feature.geometry()):
-                count += 1
-        if DEBUG : print('feat ',feature.id(),'count',count)
-        return count
-        
-    else:
-        return False
+    return stgeomcounteval(values, feature, parent, "overlaps")
 
             
 
 @qgsfunction(args=1, group='Reference',register = False, usesgeometry=True)
 def equaling_geom_count(values, feature, parent):
     """
-        Get the count of the features in target layer equaling (same geometry) by the source feature
-        
+        Get the count of the features in target_layer that are equals (same geometry) to the source feature
         <h4>Syntax</h4>
-        <p>equaling_geom_count(<i>'target_layer_name'</i>)</p>
+        <div class="syntax"><code>
+        <span class="functionname">equaling_geom_count(</span>
+        <span class="argument">'target_layer'</span>
+        <span class="functionname">)</span>
+        </code></div>
         <h4>Arguments</h4>
-        <p><i>  target_layer_name </i> : name of the target layer, for exemple 'COUNTRIES'.<br>
-        
-        <h4>Example</h4>
-        <p><!-- Show example of function.-->
-             equaling_geom_count('COUNTRIES') &rarr; 665</p>
-        
+        <div class="arguments">
+        <table>
+        <tr><td class="argument">target_layer</td><td>name of the target layer, for example 'Trees'.</td></tr>
+        </table></div>
+        <h4>Examples</h4>
+        <!-- Show example of function.-->
+        <div class="examples"><ul>
+        <li><code>equaling_geom_count('Trees')</code> &rarr; <code>126</code></li>
+        </ul></div>
     """ 
     
-    DEBUG = True
-    try:    #qgis 3
-        if DEBUG : print('feat geom ',feature.geometry().asPolygon(), feature.geometry().area(), feature.hasGeometry())
-    except: #qgis 2
-        if DEBUG : print('feat geom ', feature.geometry())
-    
-    targetLayerName = values[0]
-    #targetFieldName = values[1]
-    
-    if feature.geometry() is not None:        
-        #layerSet = {layer.name():layer for layer in iface.legendInterface().layers()}
-        layerSet = _getLayerSet()
-        
-        
-        if not (targetLayerName in layerSet.keys()):
-            parent.setEvalErrorString("error: targetLayer not present")
-            return
-        if layerSet[targetLayerName].type() != qgis.core.QgsMapLayer.VectorLayer:
-            parent.setEvalErrorString("error: targetLayer is not a vector layer")
-            return
-            
-        count = 0
-        
-        request = qgis.core.QgsFeatureRequest()
-        request.setFilterRect(feature.geometry().boundingBox())
-        for feat in layerSet[targetLayerName].getFeatures(request):
-            if feat.geometry().isGeosEqual(feature.geometry()):
-                count += 1
-        if DEBUG : print('feat ',feature.id(),'count',count)
-        return count
-        
-    else:
-        return False 
+    return stgeomcounteval(values, feature, parent, "isGeosEqual")  
             
             
-            
-@qgsfunction(args=2, group='Reference',register = False, usesgeometry=True)
-def intersecting_geom_sum(values, feature, parent):
-    """
-        Sums the geometries' attributes of the target layer intersected by the source feature
-        
-        <h4>Syntax</h4>
-        <p>intersecting_geom_sum(<i>'target_layer_name','Field_name_to_sum'</i>)</p>
-        <h4>Arguments</h4>
-        <p><i>  target_layer_name</i> : name of the target layer, for exemple 'COUNTRIES'.<br>
-        <i> Field_name_to_sum</i> : name of the field to sum, for exemple 'POPULATION' <br></p>
-
-        <h4>Example</h4>
-        <p><!-- Show example of function.-->
-             intersecting_geom_sum('COUNTRIES','POPULATION') &rarr; 2165</p>
-        
-    """ 
-    
+# Updated Sigmoé
+# Main function used by ...geom_sum functions
+def stgeomsumeval(values, feature, parent, predic):
     DEBUG = False
     
     try:    #qgis 3
@@ -1469,7 +1254,7 @@ def intersecting_geom_sum(values, feature, parent):
         request = qgis.core.QgsFeatureRequest()
         request.setFilterRect(feature.geometry().boundingBox())
         for feat in layerSet[targetLayerName].getFeatures(request):
-            if feat.geometry().intersects(feature.geometry()):
+            if eval("feat.geometry()." + predic + "(feature.geometry())"):
                 try:
                     count += float(feat[targetFieldName])
                 except:
@@ -1480,119 +1265,87 @@ def intersecting_geom_sum(values, feature, parent):
         
     else:
         return False
+
+
+
+@qgsfunction(args=2, group="Reference",register = False, usesgeometry=True)
+def intersecting_geom_sum(values, feature, parent):
+    """
+        Return the sum of the field_to_sum values of the objects in the target_layer that intersect the source feature
+        <h4>Syntax</h4>
+        <div class="syntax"><code>
+        <span class="functionname">intersecting_geom_sum(</span>
+        <span class="argument">'target_layer', 'field_to_sum'</span>
+        <span class="functionname">)</span>
+        </code></div>
+        <h4>Arguments</h4>
+        <div class="arguments">
+        <table>
+        <tr><td class="argument">target_layer</td><td>name of the target layer, for example 'Roads'.</td></tr>
+        <tr><td class="argument">field_to_sum</td><td>name of the field to sum, for example 'Roadlength'</td></tr>
+        </table></div>
+        <h4>Examples</h4>
+        <!-- Show example of function.-->
+        <div class="examples"><ul>
+        <li><code>intersecting_geom_sum('Roads','Roadlength')</code> &rarr; <code>12569.63</code></li>
+        </ul></div>
+    """ 
+    
+    return stgeomsumeval(values, feature, parent, "intersects")
         
         
 
 @qgsfunction(args=2, group='Reference',register = False, usesgeometry=True)
 def within_geom_sum(values, feature, parent):
     """
-        Sums the geometries' attributes of the target layer within  the source feature
-        
+        Return the sum of the field_to_sum values of the objects in the target_layer that are within the source feature
         <h4>Syntax</h4>
-        <p>within_geom_sum(<i>'target_layer_name','Field_name_to_sum'</i>)</p>
+        <div class="syntax"><code>
+        <span class="functionname">within_geom_sum(</span>
+        <span class="argument">'target_layer', 'field_to_sum'</span>
+        <span class="functionname">)</span>
+        </code></div>
         <h4>Arguments</h4>
-        <p><i>  target_layer_name</i> : name of the target layer, for exemple 'COUNTRIES'.<br>
-        <i> Field_name_to_sum</i> : name of the field to sum, for exemple 'POPULATION' <br></p>
-
-        <h4>Example</h4>
-        <p><!-- Show example of function.-->
-             within_geom_sum('COUNTRIES','POPULATION') &rarr; 2165</p>
-        
+        <div class="arguments">
+        <table>
+        <tr><td class="argument">target_layer</td><td>name of the target layer, for example 'Roads'.</td></tr>
+        <tr><td class="argument">field_to_sum</td><td>name of the field to sum, for example 'Roadlength'</td></tr>
+        </table></div>
+        <h4>Examples</h4>
+        <!-- Show example of function.-->
+        <div class="examples"><ul>
+        <li><code>within_geom_sum('Roads','Roadlength')</code> &rarr; <code>12569.63</code></li>
+        </ul></div>
     """ 
     
-    DEBUG = False
-    
-    try:    #qgis 3
-        if DEBUG : print('feat geom ',feature.geometry().asPolygon(), feature.geometry().area(), feature.hasGeometry())
-    except: #qgis 2
-        if DEBUG : print('feat geom ', feature.geometry())
-    
-    targetLayerName = values[0]
-    targetFieldName = values[1]
-    
-    if feature.geometry() is not None:
-        #layerSet = {layer.name():layer for layer in iface.legendInterface().layers()}
-        layerSet = _getLayerSet()
-            
-        if not (targetLayerName in layerSet.keys()):
-            parent.setEvalErrorString("error: targetLayer not present")
-            return
-        if layerSet[targetLayerName].type() != qgis.core.QgsMapLayer.VectorLayer:
-            parent.setEvalErrorString("error: targetLayer is not a vector layer")
-            return
-            
-        count = 0.0
-        
-        request = qgis.core.QgsFeatureRequest()
-        request.setFilterRect(feature.geometry().boundingBox())
-        for feat in layerSet[targetLayerName].getFeatures(request):
-            if feat.geometry().within(feature.geometry()):
-                try:
-                    count += float(feat[targetFieldName])
-                except:
-                    #case feat[targetFieldName] is null or string....
-                    pass
-        if DEBUG : print('feat ',feature.id(),'count',count)
-        return count
-        
-    else:
-        return False
+    return stgeomsumeval(values, feature, parent, "within")
         
 
 @qgsfunction(args=2, group='Reference',register = False, usesgeometry=True)
 def overlapping_geom_sum(values, feature, parent):
     """
-        Sums the geometries' attributes of the target layer within  the source feature
-        
+        Return the sum of the field_to_sum values of the objects in the target_layer overlapping the source feature
         <h4>Syntax</h4>
-        <p>overlapping_geom_sum(<i>'target_layer_name','Field_name_to_sum'</i>)</p>
+        <div class="syntax"><code>
+        <span class="functionname">overlapping_geom_sum(</span>
+        <span class="argument">'target_layer', 'field_to_sum'</span>
+        <span class="functionname">)</span>
+        </code></div>
         <h4>Arguments</h4>
-        <p><i>  target_layer_name</i> : name of the target layer, for exemple 'COUNTRIES'.<br>
-        <i> Field_name_to_sum</i> : name of the field to sum, for exemple 'POPULATION' <br></p>
-
-        <h4>Example</h4>
-        <p><!-- Show example of function.-->
-             overlapping_geom_sum('COUNTRIES','POPULATION') &rarr; 2165</p>
-        
+        <div class="arguments">
+        <table>
+        <tr><td class="argument">target_layer</td><td>name of the target layer, for example 'Roads'.</td></tr>
+        <tr><td class="argument">field_to_sum</td><td>name of the field to sum, for example 'Roadlength'</td></tr>
+        </table></div>
+        <h4>Examples</h4>
+        <!-- Show example of function.-->
+        <div class="examples"><ul>
+        <li><code>overlapping_geom_sum('Roads','Roadlength')</code> &rarr; <code>12569.63</code></li>
+        </ul></div>
     """ 
     
-    DEBUG = False
-    
-    try:    #qgis 3
-        if DEBUG : print('feat geom ',feature.geometry().asPolygon(), feature.geometry().area(), feature.hasGeometry())
-    except: #qgis 2
-        if DEBUG : print('feat geom ', feature.geometry())
-    
-    targetLayerName = values[0]
-    targetFieldName = values[1]
-    
-    if feature.geometry() is not None:
-        #layerSet = {layer.name():layer for layer in iface.legendInterface().layers()}
-        layerSet = _getLayerSet()
-            
-        if not (targetLayerName in layerSet.keys()):
-            parent.setEvalErrorString("error: targetLayer not present")
-            return
-        if layerSet[targetLayerName].type() != qgis.core.QgsMapLayer.VectorLayer:
-            parent.setEvalErrorString("error: targetLayer is not a vector layer")
-            return
-            
-        count = 0.0
-        
-        request = qgis.core.QgsFeatureRequest()
-        request.setFilterRect(feature.geometry().boundingBox())
-        for feat in layerSet[targetLayerName].getFeatures(request):
-            if feat.geometry().overlaps(feature.geometry()):
-                try:
-                    count += float(feat[targetFieldName])
-                except:
-                    #case feat[targetFieldName] is null or string....
-                    pass
-        if DEBUG : print('feat ',feature.id(),'count',count)
-        return count
-        
-    else:
-        return False
+    return stgeomsumeval(values, feature, parent, "overlaps")
+
         
         
         
@@ -1687,7 +1440,7 @@ class refFunctions:
         QgsExpression.registerFunction(WKTarea)
         QgsExpression.registerFunction(WKTcentroid)
         QgsExpression.registerFunction(WKTpointonsurface)
-        QgsExpression.registerFunction(WKTlenght)
+        QgsExpression.registerFunction(WKTlength)
         QgsExpression.registerFunction(geomRedef)
         QgsExpression.registerFunction(geomnearest)
         QgsExpression.registerFunction(geomdistance)
@@ -1729,7 +1482,7 @@ class refFunctions:
         QgsExpression.unregisterFunction('WKTarea')
         QgsExpression.unregisterFunction('WKTcentroid')
         QgsExpression.unregisterFunction('WKTpointonsurface')
-        QgsExpression.unregisterFunction('WKTlenght')
+        QgsExpression.unregisterFunction('WKTlength')
         QgsExpression.unregisterFunction('geomRedef')
         QgsExpression.unregisterFunction('geomnearest')
         QgsExpression.unregisterFunction('geomdistance')
